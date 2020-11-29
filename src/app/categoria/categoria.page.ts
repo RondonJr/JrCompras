@@ -1,43 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { DbService } from './../services/db.service'
-import { ActivatedRoute, Router } from "@angular/router";
+import { DbService } from '../services/db.service';
+import { ToastController } from '@ionic/angular';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-categoria',
-  templateUrl: './categoria.page.html',
-  styleUrls: ['./categoria.page.scss'],
+  templateUrl: 'categoria.page.html',
+  styleUrls: ['categoria.page.scss'],
 })
+
 export class CategoriaPage implements OnInit {
-  editForm: FormGroup;
-  id: any;
+  mainForm: FormGroup;
+  Data: any[] = []
+
   constructor(
     private db: DbService,
-    private router: Router,
     public formBuilder: FormBuilder,
-    private actRoute: ActivatedRoute
-  ) { 
-    this.id = this.actRoute.snapshot.paramMap.get('id');
+    private toast: ToastController,
+    private router: Router
+  ) { }
 
-    this.db.getCategoria(this.id).then(res => {
-      this.editForm.setValue({
-        categoria_name: res['categoria_name']
-      })
-    })
-  }
 
   ngOnInit() {
-    this.editForm = this.formBuilder.group({
-      categoria_name: [''],
+    this.db.dbState().subscribe((res) => {
+      if(res){
+        this.db.fetchCategorias().subscribe(item => {
+          this.Data = item
+        })
+      }
+    });
+
+    this.mainForm = this.formBuilder.group({
+      categoria: ['']
     })
   }
 
-  saveForm(){
-    this.db.updateCategoria(this.id, this.editForm.value)
-    .then( (res) => {
-      console.log(res)
-      this.router.navigate(['/home']);
+  storeData() {
+    this.db.addCategoria(
+      this.mainForm.value.categoria
+    ).then((res) => {
+      this.mainForm.reset();
     })
   }
 
+  deleteCategoria(id){
+    this.db.deleteCategoria(id).then(async(res) => {
+      let toast = await this.toast.create({
+        message: 'Categoria apagada!',
+        duration: 2500
+      });
+      toast.present();      
+    })
+  }
+   
 }
