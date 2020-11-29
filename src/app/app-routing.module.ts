@@ -9,10 +9,6 @@ const routes: Routes = [
   {
     path: '', redirectTo: 'dashboard', pathMatch: 'full'
   },
-  {
-    path: 'edit-produto',
-    loadChildren: () => import('./edit-produto/edit-produto.module').then( m => m.EditProdutoPageModule)
-  },
    {
     path: 'categoria/:id',
     loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
@@ -28,7 +24,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },  {
+    path: 'compras',
+    loadChildren: () => import('./compras/compras.module').then( m => m.ComprasPageModule)
   },
+
 ];
 
 @NgModule({
