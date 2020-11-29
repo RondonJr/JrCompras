@@ -3,11 +3,19 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'categoria',
-    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '', redirectTo: 'dashboard', pathMatch: 'full'
+  },
+   {
+    path: 'categoria/:id',
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },
+  {
+    path: 'produto/:id',
+    loadChildren: () => import('./produto/produto.module').then( m => m.ProdutoPageModule)
   },
   {
     path: 'manual',
@@ -16,14 +24,9 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  },
-  {
+  },  {
     path: 'compras',
     loadChildren: () => import('./compras/compras.module').then( m => m.ComprasPageModule)
-  },
-  {
-    path: 'produto',
-    loadChildren: () => import('./produto/produto.module').then( m => m.ProdutoPageModule)
   },
 
 ];
