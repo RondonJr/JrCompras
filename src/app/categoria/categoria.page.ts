@@ -36,7 +36,7 @@ export class CategoriaPage implements OnInit {
     this.db.updateCategoria(this.id, this.editForm.value)
     .then( (res) => {
       console.log(res)
-      this.router.navigate(['/home']);
+      this.router.navigate(['/categorias']);
     })
   }
 
