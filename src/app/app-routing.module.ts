@@ -3,7 +3,26 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+<<<<<<< HEAD
     path: 'categoria',
+=======
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: '', redirectTo: 'dashboard', pathMatch: 'full'
+  },
+  {
+    path: 'edit-produto',
+    loadChildren: () => import('./edit-produto/edit-produto.module').then( m => m.EditProdutoPageModule)
+  },
+  {
+    path: 'edit-categoria',
+    loadChildren: () => import('./edit-categoria/edit-categoria.module').then( m => m.EditCategoriaPageModule)
+  },
+  {
+    path: 'categoria/:id',
+>>>>>>> parent of f688498... removendo editCategoria
     loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
   },
   {
