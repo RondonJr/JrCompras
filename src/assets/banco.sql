@@ -11,9 +11,13 @@ CREATE TABLE IF NOT EXISTS unidade(
 );
 
 INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (1, 'Kg');
-INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (2, 'Un');
-INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (3, 'Saco');
-INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (4, 'Litro');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (2, 'g');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (3, 'Un');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (4, 'Sc');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (5, 'L');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (6, 'ml');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (7, 'Dz');
+INSERT or IGNORE INTO unidade(id, unidade_name) VALUES (8, 'Pct');
 
 
 CREATE TABLE IF NOT EXISTS produto(
