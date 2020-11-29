@@ -5,7 +5,32 @@
 </ion-header>
 
 <ion-content>
-  <ion-button expand="block" href="dashboard">Dashboard</ion-button>
+  <ion-list lines="full">
+    <form [formGroup]="editForm" (ngSubmit)="saveForm()">
+      <ion-item>
+        <ion-label position="floating">produto</ion-label>
+        <ion-input formControlName="produto_name" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">unidade</ion-label>
+        <ion-input formControlName="unidadeId" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">categoria</ion-label>
+        <ion-input formControlName="categoriaId" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">quantidade</ion-label>
+        <ion-input formControlName="quantidade" type="text" required></ion-input>
+      </ion-item>
 
-  cheguei aqui no produto
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">
+            Atualizar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
 </ion-content>

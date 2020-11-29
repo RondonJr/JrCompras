@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-//import { Produto } from './produto';
-//ERRO!!!!
+import { Produto } from './produto';
 import { Categoria } from './categoria';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -15,7 +14,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 export class DbService {
   private storage: SQLiteObject;
   categoriasList = new BehaviorSubject([]);
-//  produtosList = new BehaviorSubject([]);
+  produtosList = new BehaviorSubject([]);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 constructor(
@@ -44,9 +43,9 @@ constructor(
     return this.categoriasList.asObservable();
   }
 
-  // fetchProdutos(): Observable<Produto[]> {
-  //   return this.produtosList.asObservable();
-  // }
+  fetchProdutos(): Observable<Produto[]> {
+    return this.produtosList.asObservable();
+  }
 
     // Render fake data
     getFakeData() {
@@ -56,7 +55,7 @@ constructor(
       ).subscribe(data => {
         this.sqlPorter.importSqlToDb(this.storage, data)
           .then(_ => {
-            //this.getProdutos();
+            this.getProdutos();
             this.getCategorias();
             this.isDbReady.next(true);
           })
@@ -115,67 +114,65 @@ constructor(
       this.getCategorias();
     });
   }
-}
 
+  // Serviços para produto..
 
+  //obter lista de produtos
+  getProdutos(){
+    return this.storage.executeSql('SELECT * FROM produto', []).then(res => {
+      let items: Produto[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+          items.push({ 
+            id: res.rows.item(i).id,
+            produto_name: res.rows.item(i).produto_name,
+            unidadeId: res.rows.item(i).unidadeId,
+            categoriaId: res.rows.item(i).categoriaId,
+            quantidade: res.rows.item(i).quantidade
+           });
+        }
+      }
+      this.produtosList.next(items);
+    });
+  }
 
-
-//   // Get list
-//   getProdutos(){
-
-//     return this.storage.executeSql('SELECT * FROM produto', []).then(res => {
-//       let items: Produto[] = [];
-//       if (res.rows.length > 0) {
-//         for (var i = 0; i < res.rows.length; i++) { 
-//           items.push({ 
-//             id: res.rows.item(i).id,
-//             produto_name: res.rows.item(i).produto_name,
-//             unidadeid: res.rows.item(i).unidadeid,
-//             categoriaid: res.rows.item(i).categoriaid,
-//             quantidade: res.rows.item(i).quantidade
-//            });
-//         }
-//       }
-//       this.produtosList.next(items);
-//     });
-//   }
-
-//   // Add
-//   addProduto(produto_name, unidadeid, categoriaid, quantidade) {
-//     let data = [produto_name, unidadeid, categoriaid, quantidade];
-//     return this.storage.executeSql('INSERT INTO produto (produto_name, unidadeid, categoriaid, quantidade) VALUES (?, ?, ?, ?)', data)
-//     .then(res => {
-//       this.getProdutos();
-//     });
-//   }
+  // Adicionar produto
+  addProduto(produto_name,unidadeId,categoriaId,quantidade) {
+    let data = [produto_name,unidadeId,categoriaId,quantidade];
+    return this.storage.executeSql('INSERT INTO produto (produto_name,unidadeId,categoriaId,quantidade) VALUES (?,?,?,?)', data)
+    .then(res => {
+      this.getProdutos();
+    });
+  }
  
-//   // Get single object
-//   getProduto(id): Promise<Produto> {
-//     return this.storage.executeSql('SELECT * FROM produto WHERE id = ?', [id]).then(res => { 
-//       return {
-//         id: res.rows.item(0).id,
-//         produto_name: res.rows.item(0).produto_name,
-//         unidadeid: res.rows.item(0).unidadeid,
-//         categoriaid: res.rows.item(0).categoriaid,
-//         quantidade: res.rows.item(0).quantidade
-//   }
-//     });
-//   }
+  // ObterProduto
+  getProduto(id): Promise<Produto> {
+    return this.storage.executeSql('SELECT * FROM produto WHERE id = ?', [id]).then(res => { 
+      return {
+        id: res.rows.item(0).id,
+        produto_name: res.rows.item(0).produto_name,
+        unidadeId: res.rows.item(0).unidadeId,
+        categoriaId: res.rows.item(0).categoriaId,
+        quantidade: res.rows.item(0).quantidade
+  }
+    });
+  }
 
-//   // Update
-//   updateProduto(id, produto: Produto) {
-//     let data = [produto.produto_name, produto.unidadeid, produto.categoriaid, produto.quantidade];
-//     return this.storage.executeSql(`UPDATE produto SET produto_name = ?, unidadeid = ?, categoriaid = ?, quantidade = ?  WHERE id = ${id}`, data)
-//     .then(data => {
-//       this.getProdutos();
-//     })
-//   }
+   // Update
+   updateProduto(id, produto: Produto) {
+    let data = [produto.produto_name,produto.unidadeId,produto.categoriaId,produto.quantidade];
+    return this.storage.executeSql(`UPDATE produto SET produto_name = ?, unidadeId = ?, categoriaId = ?, quantidade = ?  WHERE id = ${id}`, data)
+    .then(data => {
+      this.getCategorias();
+    })
+  }
 
-//   // Delete
-//   deleteProduto(id) {
-//     return this.storage.executeSql('DELETE FROM produto WHERE id = ?', [id])
-//     .then(_ => {
-//       this.getProdutos();
-//     });
-//   }
-// }
+  // Deletar produto
+  deleteProduto(id) {
+    return this.storage.executeSql('DELETE FROM produto WHERE id = ?', [id])
+    .then(_ => {
+      this.getProdutos();
+    });
+  }
+
+}

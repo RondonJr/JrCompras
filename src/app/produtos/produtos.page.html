@@ -1,11 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>produtos</ion-title>
+    <ion-title>Produtos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-button expand="block" href="dashboard">Dashboard</ion-button>
-  Página com a lista de produtos....
+  
+  <ion-list lines="full">
+    <form [formGroup]="mainForm" (ngSubmit)="storeData()">
+      <ion-item>
+        <ion-label position="floating">Novo produto</ion-label>
+        <ion-input formControlName="produto" type="text" required></ion-input>
+        <ion-input formControlName="unidade" type="text" required></ion-input>
+        <ion-input formControlName="categoria" type="text" required></ion-input>
+        <ion-input formControlName="quantidade" type="text" required></ion-input>
+      </ion-item>
 
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">
+            Adicionar Produto
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+
+    <ion-list>
+    <ion-list-header>
+      Produtos
+    </ion-list-header>
+
+    <ion-item lines="inset" *ngFor="let data of Data">
+      <ion-label>
+        <h5>{{data.produto_name}} - {{data.unidadeId}} - {{data.categoriaId}} - {{data.quantidade}}</h5>
+      </ion-label>
+
+      <div class="item-note" item-end>
+        <ion-icon name="create" style="zoom:2.0" [routerLink]="['/produto/', data.id]"></ion-icon>        
+        <ion-icon name="trash" style="zoom:2.0" (click)="deleteProduto(data.id)"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
