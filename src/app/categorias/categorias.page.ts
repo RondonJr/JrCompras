@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { DbService } from './../services/db.service';
+import { DbService } from '../services/db.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-categorias',
+  templateUrl: 'categorias.page.html',
+  styleUrls: ['categorias.page.scss'],
 })
 
-export class HomePage implements OnInit {
+export class CategoriasPage implements OnInit {
   mainForm: FormGroup;
   Data: any[] = []
 
