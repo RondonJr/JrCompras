@@ -163,7 +163,7 @@ constructor(
     let data = [produto.produto_name,produto.unidadeId,produto.categoriaId,produto.quantidade];
     return this.storage.executeSql(`UPDATE produto SET produto_name = ?, unidadeId = ?, categoriaId = ?, quantidade = ?  WHERE id = ${id}`, data)
     .then(data => {
-      this.getCategorias();
+      this.getProdutos();
     })
   }
 
