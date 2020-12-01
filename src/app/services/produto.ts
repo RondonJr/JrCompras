@@ -4,4 +4,6 @@ export class Produto {
     unidadeId: number;
     categoriaId: number;
     quantidade: number;
+    unidade:string;
+    categoria:string;
 }

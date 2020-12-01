@@ -12,6 +12,8 @@ import { Router } from "@angular/router";
 export class ProdutosPage implements OnInit {
   mainForm: FormGroup;
   Data: any[] = []
+  Categorias: any[] = []
+  
 
 
   constructor( private db: DbService,
@@ -21,12 +23,25 @@ export class ProdutosPage implements OnInit {
     {    
    }
 
-  ngOnInit() { this.db.dbState().subscribe((res) => {
-    if(res){
-      this.db.fetchProdutos().subscribe(item => {
-        this.Data = item
-      })
-    }
+  
+
+  ngOnInit() { 
+
+    
+    
+    this.db.dbState().subscribe((res) => {
+      if(res){
+        this.db.fetchProdutos().subscribe(item => {
+          this.Data = item
+        })
+        this.db.fetchCategorias().subscribe(item => {
+          this.Categorias = item
+          console.log(item);
+          //continuar daqui
+          })
+          
+
+     }
   });
 
   this.mainForm = this.formBuilder.group({
@@ -36,6 +51,9 @@ export class ProdutosPage implements OnInit {
     quantidade: ['']
     
   })
+  
+
+
 }
 
 storeData() {

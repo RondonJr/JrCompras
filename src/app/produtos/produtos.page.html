@@ -42,9 +42,17 @@
       Produtos
     </ion-list-header>
 
+    <ion-item lines="inset" *ngFor="let categoria of Categorias">
+      <ion-label>
+        {{categoria.categoria_name}} - {{categoria.id}}
+      </ion-label>
+
+    </ion-item>
+
     <ion-item lines="inset" *ngFor="let data of Data">
       <ion-label>
-        <h5>{{data.produto_name}} - {{data.unidadeId}} - {{data.categoriaId}} - {{data.quantidade}}</h5>
+        <h4>{{data.categoria}}</h4>
+        <h5>{{data.produto_name}} - {{data.quantidade}}{{data.unidade}} </h5>
       </ion-label>
 
       <div class="item-note" item-end>

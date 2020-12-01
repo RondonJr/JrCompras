@@ -24,7 +24,7 @@ export class ProdutoPage implements OnInit {
         produto_name: res['produto_name'],
         unidadeId: res['unidadeId'],
         categoriaId: res['categoriaId'],
-        quantidade: res['quantidade']
+        quantidade: res['quantidade'],
 
       })
     })

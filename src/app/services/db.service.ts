@@ -119,7 +119,8 @@ constructor(
 
   //obter lista de produtos
   getProdutos(){
-    return this.storage.executeSql('SELECT * FROM produto', []).then(res => {
+   // return this.storage.executeSql('SELECT * FROM produto', []).then(res => {
+    return this.storage.executeSql('select p.id as id, p.produto_name as produto_name, p.quantidade as quantidade, p.unidadeId as unidadeId, p.categoriaId as categoriaId, c.categoria_name as categoria_name, u.unidade_name as unidade_name from produto p, categoria c, unidade u where p.categoriaId=c.id and p.unidadeId=u.id', []).then(res => {
       let items: Produto[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -128,14 +129,37 @@ constructor(
             produto_name: res.rows.item(i).produto_name,
             unidadeId: res.rows.item(i).unidadeId,
             categoriaId: res.rows.item(i).categoriaId,
-            quantidade: res.rows.item(i).quantidade
-           });
+            quantidade: res.rows.item(i).quantidade,
+            unidade:res.rows.item(i).unidade_name,
+            categoria:res.rows.item(i).categoria_name
+              
+           })
         }
       }
       this.produtosList.next(items);
     });
   }
-
+  //Obtendo a lista de produtos de uma determinada categoria
+  getProdutosByCategoria(categoriaId){
+    // return this.storage.executeSql('SELECT * FROM produto', []).then(res => {
+     return this.storage.executeSql(`SELECT p.id as id, p.produto_name as produto_name, p.quantidade as quantidade, p.unidadeId as unidadeId, p.categoriaId as categoriaId, c.categoria_name as categoria_name, u.unidade_name as unidade_name FROM produto p, categoria c, unidade u where p.categoriaId=c.id and p.unidadeId=u.id WHERE c.id=  ${categoriaId}`, []).then(res => {
+       let items: Produto[] = [];
+       if (res.rows.length > 0) {
+         for (var i = 0; i < res.rows.length; i++) { 
+           items.push({ 
+             id: res.rows.item(i).id,
+             produto_name: res.rows.item(i).produto_name,
+             unidadeId: res.rows.item(i).unidadeId,
+             categoriaId: res.rows.item(i).categoriaId,
+             quantidade: res.rows.item(i).quantidade,
+             unidade:res.rows.item(i).unidade_name,
+             categoria:res.rows.item(i).categoria_name
+            })
+         }
+       }
+       this.produtosList.next(items);
+     });
+   }
   // Adicionar produto
   addProduto(produto_name,unidadeId,categoriaId,quantidade) {
     let data = [produto_name,unidadeId,categoriaId,quantidade];
@@ -153,7 +177,9 @@ constructor(
         produto_name: res.rows.item(0).produto_name,
         unidadeId: res.rows.item(0).unidadeId,
         categoriaId: res.rows.item(0).categoriaId,
-        quantidade: res.rows.item(0).quantidade
+        quantidade: res.rows.item(0).quantidade,
+        unidade:res.rows.item(0).unidade_name,
+        categoria:res.rows.item(0).categoria_name
   }
     });
   }
