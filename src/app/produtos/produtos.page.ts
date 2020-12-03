@@ -26,8 +26,7 @@ export class ProdutosPage implements OnInit {
   
 
   ngOnInit() { 
-
-    
+   
     
     this.db.dbState().subscribe((res) => {
       if(res){
@@ -36,8 +35,6 @@ export class ProdutosPage implements OnInit {
         })
         this.db.fetchCategorias().subscribe(item => {
           this.Categorias = item
-          console.log(item);
-          //continuar daqui
           })
           
 
@@ -55,6 +52,13 @@ export class ProdutosPage implements OnInit {
 
 
 }
+
+
+filtraDados(categoriaId){
+  return this.Data.filter(i=>i.categoriaId===categoriaId)
+
+}
+
 
 storeData() {
   this.db.addProduto(

@@ -46,6 +46,10 @@ constructor(
   fetchProdutos(): Observable<Produto[]> {
     return this.produtosList.asObservable();
   }
+  
+  fetchProdutosByCategoria(): Observable<Produto[]> {
+    return this.produtosList.asObservable();
+  }
 
     // Render fake data
     getFakeData() {

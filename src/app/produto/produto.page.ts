@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ProdutoPage implements OnInit {
   editForm: FormGroup;
   id: any;
+  Categorias: any[] = [];
+
   constructor(    
     private db: DbService,
     private router: Router,
@@ -18,7 +20,7 @@ export class ProdutoPage implements OnInit {
     private actRoute: ActivatedRoute
   ) { 
     this.id = this.actRoute.snapshot.paramMap.get('id');
-
+   
     this.db.getProduto(this.id).then(res => {
       this.editForm.setValue({
         produto_name: res['produto_name'],
@@ -26,9 +28,10 @@ export class ProdutoPage implements OnInit {
         categoriaId: res['categoriaId'],
         quantidade: res['quantidade'],
 
-      })
+      })      
     })
   }
+
 
   ngOnInit() {
     this.editForm = this.formBuilder.group({
@@ -36,8 +39,18 @@ export class ProdutoPage implements OnInit {
       unidadeId: [''],
       categoriaId: [''],
       quantidade: ['']
-  })
+    })
+    this.db.dbState().subscribe((res) => {
+      if(res){
+        this.db.fetchCategorias().subscribe(item => {
+          this.Categorias = item
+          })
+        }
+    })   
+
 }
+
+
 saveForm(){
     this.db.updateProduto(this.id, this.editForm.value)
     .then( (res) => {

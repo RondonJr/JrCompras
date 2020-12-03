@@ -14,6 +14,7 @@
         <ion-label position="floating">Produto</ion-label>
         <ion-input formControlName="produto" type="text" required></ion-input>
       </ion-item>
+
       <ion-item>
         <ion-label position="floating">Categoria</ion-label>
         <ion-input formControlName="categoria" type="text" required></ion-input>
@@ -42,23 +43,19 @@
       Produtos
     </ion-list-header>
 
-    <ion-item lines="inset" *ngFor="let categoria of Categorias">
-      <ion-label>
-        {{categoria.categoria_name}} - {{categoria.id}}
-      </ion-label>
-
-    </ion-item>
-
-    <ion-item lines="inset" *ngFor="let data of Data">
-      <ion-label>
-        <h4>{{data.categoria}}</h4>
-        <h5>{{data.produto_name}} - {{data.quantidade}}{{data.unidade}} </h5>
-      </ion-label>
-
-      <div class="item-note" item-end>
-        <ion-icon name="create" style="zoom:2.0" [routerLink]="['/produto/', data.id]"></ion-icon>        
-        <ion-icon name="trash" style="zoom:2.0" (click)="deleteProduto(data.id)"></ion-icon>
-      </div>
-    </ion-item>
+    <div lines="inset" *ngFor="let categoria of Categorias">
+      <ion-label > {{categoria.categoria_name}} </ion-label>
+      <ion-item lines="inset" *ngFor="let data of filtraDados(categoria.id)">
+        <ion-label>
+          <h5>{{data.produto_name}} - {{data.quantidade}}{{data.unidade}} {{data.categoriaId}}</h5>
+        </ion-label>
+        <div class="item-note" item-end>
+          <ion-icon name="create" style="zoom:2.0" [routerLink]="['/produto/', data.id]"></ion-icon>        
+          <ion-icon name="trash" style="zoom:2.0" (click)="deleteProduto(data.id)"></ion-icon>
+        </div>
+         <br>
+      </ion-item>
+    </div>
+  
   </ion-list>
 </ion-content>

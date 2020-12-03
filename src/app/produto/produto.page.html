@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Produto</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Produto</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,14 +22,14 @@
         <ion-label position="floating">Categoria</ion-label>
         <ion-input formControlName="categoriaId" type="text" required></ion-input>
       </ion-item>
-      <ion-item >
-        <ion-label position="floating">Categoria2</ion-label>
-        <ion-select class="custom-options">
 
-          <ion-select-option *ngvalue="{{categoria.id}}">{{categoria.categoria_name}}</ion-select-option>
+      <!-- <ion-item>
+        <ion-select formControlName="categoriaId" [compareWith]="compareFn" >
+          <ion-select-option *ngFor="let categoria of Categorias" value="categoria.id" >
+            {{categoria.categoria_name}}</ion-select-option>
         </ion-select>
-      </ion-item>
-      <ion-item>
+      </ion-item>  -->
+      <ion-item> 
         <ion-label position="floating">Quantidade</ion-label>
         <ion-input formControlName="quantidade" type="text" required></ion-input>
       </ion-item>
