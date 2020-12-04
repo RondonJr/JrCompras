@@ -45,7 +45,7 @@ export class ComprasPage implements OnInit {
   
   }
 removeProduto(produto){
-  this.Data.pop(produto)
+  //this.Data.pop(produto)
   return this.Data
 
 }
