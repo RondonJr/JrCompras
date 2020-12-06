@@ -1,26 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Manual</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Lista de Compras</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-button expand="block" href="dashboard">Página Inicial</ion-button>
-  <h4>1 - 
-    Insira na opção CATEGORIAS, as categorias de compras que deseja organizar, exemplo: Supermercado, Feira, Açougue, Papelaria, ou outra categoria que te ajude a se organizar.
-    As categorias vão organizar suas listas de compras
-  </h4>
-  <h4>
-    2 - 
-    Na opção PRODUTOS, insira os produtos que você deseja que apareçam em suas listas, podendo colocar as quantidades e unidades que usualmente compra, exemplo (arroz 5Kg, arroz 1saco, arroz 1pacote,  Feijão 1Kg,...).
-    Da mesma maneira, altere os produtos e/ou quantidades já cadastrados, isso será mostrado na sua lista de compras.
-  </h4>
-  <h4>
-    3 - 
-    Abra sua Lista de compras, ali, separados por categoria, aparecerão os produtos que você precisa comprar.
-  </h4>
-  <h4>
-    Aproveite!
-  </h4>
+  <ion-item href="dashboard" color="secondary">
+    <ion-label>Página inicial</ion-label>
+    <ion-icon name="home-sharp" size="large"></ion-icon>
+  </ion-item>
+  <ion-card>
+    <ion-card-header>1 - Criando categorias</ion-card-header>
+    <ion-card-content>Vá até a tela de categorias <ion-icon name="pricetag"></ion-icon> e crie as categorias desejadas <br>
+      exemplo: Supermercado, Feira, Açougue, Papelaria, ou outra categoria que te ajude a se organizar.
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>2 - Criando produtos</ion-card-header>
+    <ion-card-content>Vá até a tela de produtos <ion-icon name="fast-food"></ion-icon> e crie os produtos desejados. <br>
+      Lá, você irá incluir os produtos que deseje constar na lista informando a sua respectiva categoria, informando também as quantidades e unidade de medida.
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>3 - Fazendo suas compras</ion-card-header>
+    <ion-card-content>Na tela de compras <ion-icon name="bag"></ion-icon> estarão seus produtos criados. <br>
+      A medida que for colocando no carrinho, marque ao lado do item. 
+    </ion-card-content>
+  </ion-card>
+  
 
 </ion-content>

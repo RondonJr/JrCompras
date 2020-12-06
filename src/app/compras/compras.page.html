@@ -1,30 +1,28 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Lista de Compras</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-button expand="block" href="dashboard">Página inicial</ion-button>
+  <ion-item href="dashboard" color="secondary">
+    <ion-label>Página inicial</ion-label>
+    <ion-icon name="home-sharp" size="large"></ion-icon>
+  </ion-item>
+ 
 
-  <div lines="inset" *ngFor="let categoria of Categorias">
-    <ion-label > {{categoria.categoria_name}}</ion-label>
+  <ion-list *ngFor="let categoria of Categorias ">
+    <ion-item color="light">
+      <ion-icon name="pricetag" color="medium" ></ion-icon>
+    <ion-label class="titulo_categoria"><h3> {{categoria.categoria_name}}</h3> </ion-label>
+  </ion-item>
 
 
-    <ion-item-sliding  *ngFor="let data of filtraDados(categoria.id)" (ionDrag)=removeProduto(data)>
-    <ion-item>
-      <ion-label>
-        {{data.produto_name}} - {{data.quantidade}}{{data.unidade}} {{data.categoriaId}}
+  <ion-item *ngFor="let data of filtraDados(categoria.id)">
+      <ion-label  [ngClass]="data.marcado == true ? 'marcado': 'normal'">
+        {{data.produto_name}} - {{data.quantidade}}{{data.unidade}}
       </ion-label>
-    </ion-item>
-    <ion-item-options (click)="subscri"
-      <ion-item-option color="success" >
-        <ion-icon name="checkmark-outline" slot="end"></ion-icon>
-        Comprado...
-      </ion-item-option>
-    </ion-item-options>
-    </ion-item-sliding>
+    <ion-checkbox color="primary" slot="end" (click)="change(data.id)" ></ion-checkbox>
+  </ion-item>
 
-  </div>
-
+  </ion-list>
 </ion-content>

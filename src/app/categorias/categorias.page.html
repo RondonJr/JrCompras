@@ -1,14 +1,17 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Categorias</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button expand="block" href="dashboard">Página Inicial</ion-button>
+  <ion-item href="dashboard" color="secondary">
+    <ion-label>Página inicial</ion-label>
+    <ion-icon name="home-sharp" size="large"></ion-icon>
+  </ion-item>
   
   <ion-list lines="full">
-    <form [formGroup]="mainForm" (ngSubmit)="storeData()">
+    <!-- <form [formGroup]="mainForm" (ngSubmit)="storeData()">
       <ion-item>
         <ion-label position="floating">Nova Categoria</ion-label>
         <ion-input formControlName="categoria" type="text" required></ion-input>
@@ -24,20 +27,25 @@
     </form>
   </ion-list>
 
-    <ion-list>
+    <ion-list> -->
     <ion-list-header>
-      Categorias
+     <h3> Categorias</h3>
     </ion-list-header>
 
     <ion-item lines="inset" *ngFor="let data of Data">
       <ion-label>
-        <h5>{{data.categoria_name}}</h5>
+        <h4>{{data.categoria_name}}</h4>
       </ion-label>
 
       <div class="item-note" item-end>
-        <ion-icon name="create" style="zoom:2.0" [routerLink]="['/categoria/', data.id]"></ion-icon>        
-        <ion-icon name="trash" style="zoom:2.0" (click)="deleteCategoria(data.id)"></ion-icon>
+        <ion-icon name="create" style="zoom:2.0"  color="primary" [routerLink]="['/categoria/', data.id]"></ion-icon>        
+        <ion-icon name="trash" style="zoom:2.0"  color="danger" (click)="deleteCategoria(data.id)"></ion-icon>
       </div>
     </ion-item>
   </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button  [routerLink]="['/categoria/', 0]">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

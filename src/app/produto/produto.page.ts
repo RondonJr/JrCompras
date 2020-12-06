@@ -12,6 +12,8 @@ export class ProdutoPage implements OnInit {
   editForm: FormGroup;
   id: any;
   Categorias: any[] = [];
+  title:String;
+  button:String;
 
   constructor(    
     private db: DbService,
@@ -20,16 +22,24 @@ export class ProdutoPage implements OnInit {
     private actRoute: ActivatedRoute
   ) { 
     this.id = this.actRoute.snapshot.paramMap.get('id');
-   
+    
+    if (this.id != 0){
     this.db.getProduto(this.id).then(res => {
-      this.editForm.setValue({
+         this.editForm.setValue({
         produto_name: res['produto_name'],
         unidadeId: res['unidadeId'],
         categoriaId: res['categoriaId'],
         quantidade: res['quantidade'],
+      })   
 
-      })      
     })
+     this.title='Editar Produto'
+    this.button='Atualizar'
+    }else{
+       this.title='Inserir Produto'
+      this.button='Inserir'
+    }
+  
   }
 
 
@@ -52,11 +62,18 @@ export class ProdutoPage implements OnInit {
 
 
 saveForm(){
+  if (this.id != 0) {
     this.db.updateProduto(this.id, this.editForm.value)
-    .then( (res) => {
-      console.log(res)
-      this.router.navigate(['/produtos']);
-    })
+    .then( (res) => {this.router.navigate(['/produtos']);})
+  }else{
+    this.db.addProduto(
+      this.editForm.value.produto_name,
+      this.editForm.value.unidadeId,
+      this.editForm.value.categoriaId,
+      this.editForm.value.quantidade
+  
+    ).then( (res) => {this.router.navigate(['/produtos']);})
   }
 
+}
 }

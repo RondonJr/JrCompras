@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { DbService } from '../services/db.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
+import { ProdutoPageModule } from '../produto/produto.module';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { Router } from "@angular/router";
   styleUrls: ['./compras.page.scss'],
 })
 export class ComprasPage implements OnInit {
+ 
 
-  mainForm: FormGroup;
   Data: any[] = []
   Categorias: any[] = []
 
@@ -20,33 +21,44 @@ export class ComprasPage implements OnInit {
     private toast: ToastController,
     private router: Router) 
     {    
+
+      
    }
 
-
   ngOnInit() {
-       
-    
+     
     this.db.dbState().subscribe((res) => {
       if(res){
         this.db.fetchProdutos().subscribe(item => {
-          this.Data = item
+          this.Data = item;
         })
         this.db.fetchCategorias().subscribe(item => {
           this.Categorias = item
           })
-          
-
-     }
-  });
-
+       }
+       console.log('oninit',this.Data);
+  })
   }
+  
   filtraDados(categoriaId){
     return this.Data.filter(i=>i.categoriaId===categoriaId)
+  }
+  
+  limpaLista(){
+    this.Data.forEach(produto=>{
+      produto.marcado=false
+    })
+    console.log(this.Data);
   
   }
-removeProduto(produto){
-  //this.Data.pop(produto)
-  return this.Data
 
-}
+  change(idProduto){
+    this.Data.forEach(produto =>{
+      if (produto.id == idProduto ) {
+      produto.marcado = !produto.marcado
+      }
+    })
+   }
+   
+
 }

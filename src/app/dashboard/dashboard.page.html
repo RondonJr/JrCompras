@@ -1,14 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>JR Compras</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title slot="end">JR Compras</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <header>Página inicial</header>
-  <ion-button expand="block" href="compras">Lista de compras</ion-button>
+<section class="titulo"  text-center>
+  <ion-icon name="cart-outline"  color="primary"></ion-icon>
+  <h1 >Bem vindo ao aplicativo de compras JR Compras.
+  </h1>
+
+</section>
+<ion-grid class="home" padding>
+  <ion-row>
+    <ion-col col6 >
+        <ion-card  color="primary" href="compras">
+          <ion-card-content padding >
+            <ion-icon name="bag"></ion-icon>
+            <h2>Compras</h2>
+          </ion-card-content>
+        </ion-card>
+    </ion-col>
+    <ion-col col6 >
+      <ion-card  color="primary" href="manual">
+        <ion-card-content padding >
+          <ion-icon name="help-circle"></ion-icon>
+          <h2>Manual</h2>
+        </ion-card-content>
+      </ion-card>
+  </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col6 >
+        <ion-card  color="primary" href="categorias">
+          <ion-card-content padding >
+            <ion-icon name="pricetag"></ion-icon>
+            <h2>Categorias</h2>
+          </ion-card-content>
+        </ion-card>
+    </ion-col>
+    <ion-col col6 >
+      <ion-card  color="primary" href="produtos">
+        <ion-card-content padding >
+          <ion-icon name="fast-food"></ion-icon>
+          <h2>Produtos</h2>
+        </ion-card-content>
+      </ion-card>
+  </ion-col>
+  </ion-row>
+</ion-grid>
+  <!-- <ion-button expand="block" href="compras">Lista de compras</ion-button>
   <ion-button expand="block" href="categorias">Categorias</ion-button>
   <ion-button expand="block" href="produtos">Produtos</ion-button>
-  <ion-button expand="block" href="manual">Manual</ion-button>
+  <ion-button expand="block" href="manual">Manual</ion-button> -->
 
 </ion-content>
